@@ -81,7 +81,7 @@ def main():
             'licenses': []
         }
 
-        with open('instances_{}.json'.format(image_set)) as f:
+        with open('instances_{}.json'.format(image_set), 'w') as f:
             json.dump(json_dict, f)
 
 
