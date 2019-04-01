@@ -29,8 +29,8 @@ def main():
                   .map(lambda name: os.path.join(root, name))
                   .to_list())
         annotations = (seq(os.listdir(root))
-                       .filter(lambda f: f.endswith('.jpg'))
-                       .map(lambda f: os.path.join(root, f))
+                       .filter(lambda name: name.endswith('.txt'))
+                       .map(lambda name: os.path.join(root, name))
                        .to_list())
 
         info_json = {
