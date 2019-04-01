@@ -16,6 +16,6 @@ python tools/train_net.py --config-file configs/e2e_mask_rcnn_R_50_FPN_1x.yaml \
     SOLVER.STEPS "(380000, 506600)" \
     TEST.IMS_PER_BATCH 4 \
     MODEL.MASK_ON False \
-    DATASETS.TRAIN "('udacity_train', 'udacity_valid')"
-    DATASETS.TEST "('udacity_test',)"
+    DATASETS.TRAIN "('udacity_train', 'udacity_valid')" \
+    DATASETS.TEST "('udacity_test',)" \
     OUTPUT_DIR ../work/experiments/maskrcnn_udacity
