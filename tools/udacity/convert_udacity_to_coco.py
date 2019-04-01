@@ -59,7 +59,7 @@ def main():
                 'id': id,
                 'width': width,
                 'height': height,
-                'file_name': image_path
+                'file_name': os.path.basename(image_path)
             })
 
             for bbox in bboxes:
@@ -81,7 +81,8 @@ def main():
             'licenses': []
         }
 
-        print(json.dumps(json_dict))
+        with open('instances_{}.json'.format(image_set)) as f:
+            json.dump(json_dict, f)
 
 
 if __name__ == '__main__':
