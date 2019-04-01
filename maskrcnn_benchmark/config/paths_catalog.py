@@ -103,12 +103,24 @@ class DatasetCatalog(object):
         "cityscapes_fine_instanceonly_seg_test_cocostyle": {
             "img_dir": "cityscapes/images",
             "ann_file": "cityscapes/annotations/instancesonly_filtered_gtFine_test.json"
+        },
+        'udacity_train': {
+            'img_dir': '/home/mcv/home/mcv/datasets/M5/detection/Udacity/train',
+            'ann_file': '/home/grupo06/datasets/udacity/instance_train.json'
+        },
+        'udacity_valid': {
+            'img_dir': '/home/mcv/home/mcv/datasets/M5/detection/Udacity/valid',
+            'ann_file': '/home/grupo06/datasets/udacity/instance_valid.json'
+        },
+        'udacity_test': {
+            'img_dir': '/home/mcv/home/mcv/datasets/M5/detection/Udacity/test',
+            'ann_file': '/home/grupo06/datasets/udacity/instance_test.json'
         }
     }
 
     @staticmethod
     def get(name):
-        if "coco" in name:
+        if "coco" in name or 'udacity' in name:
             data_dir = DatasetCatalog.DATA_DIR
             attrs = DatasetCatalog.DATASETS[name]
             args = dict(
