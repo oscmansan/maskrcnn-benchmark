@@ -21,11 +21,17 @@ def main():
 
     sets = ['test', 'train', 'valid']
 
-    for set in sets:
-        root = os.path.join(args.input, set)
+    for image_set in sets:
+        root = os.path.join(args.input, image_set)
 
-        images = seq(os.listdir(root)).filter(lambda f: f.endswith('.jpg')).to_list()
-        annotations = seq(os.listdir(root)).filter(lambda f: f.endswith('.jpg')).to_list()
+        images = (seq(os.listdir(root))
+                  .filter(lambda name: name.endswith('.jpg'))
+                  .map(lambda name: os.path.join(root, name))
+                  .to_list())
+        annotations = (seq(os.listdir(root))
+                       .filter(lambda f: f.endswith('.jpg'))
+                       .map(lambda f: os.path.join(root, f))
+                       .to_list())
 
         info_json = {
             "description": 'Udacity',
@@ -40,7 +46,7 @@ def main():
 
         annotation_id = 0
 
-        for id, image_path, annotation_path in enumerate(zip(images, annotations)):
+        for id, (image_path, annotation_path) in enumerate(zip(images, annotations)):
             width, height = Image.open(image_path).size
 
             with open(annotation_path, 'r') as f:
