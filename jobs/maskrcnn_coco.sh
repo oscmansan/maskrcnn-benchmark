@@ -2,7 +2,7 @@
 #SBATCH --job-name maskrcnn_coco
 #SBATCH --cpus-per-task 4
 #SBATCH --mem 32G
-#SBATCH --qos masterhigh
+#SBATCH --qos masterlow
 #SBATCH --partition mhigh,mlow
 #SBATCH --gres gpu:1
 #SBATCH --chdir /home/grupo06/maskrcnn-benchmark
