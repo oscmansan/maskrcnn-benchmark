@@ -105,15 +105,15 @@ class DatasetCatalog(object):
             "ann_file": "cityscapes/annotations/instancesonly_filtered_gtFine_test.json"
         },
         'udacity_train': {
-            'img_dir': '/home/mcv/home/mcv/datasets/M5/detection/Udacity/train',
+            'img_dir': '/home/mcv/datasets/M5/detection/Udacity/train',
             'ann_file': '/home/grupo06/datasets/udacity/instances_train.json'
         },
         'udacity_valid': {
-            'img_dir': '/home/mcv/home/mcv/datasets/M5/detection/Udacity/valid',
+            'img_dir': '/home/mcv/datasets/M5/detection/Udacity/valid',
             'ann_file': '/home/grupo06/datasets/udacity/instances_valid.json'
         },
         'udacity_test': {
-            'img_dir': '/home/mcv/home/mcv/datasets/M5/detection/Udacity/test',
+            'img_dir': '/home/mcv/datasets/M5/detection/Udacity/test',
             'ann_file': '/home/grupo06/datasets/udacity/instances_test.json'
         }
     }
