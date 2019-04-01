@@ -106,15 +106,15 @@ class DatasetCatalog(object):
         },
         'udacity_train': {
             'img_dir': '/home/mcv/home/mcv/datasets/M5/detection/Udacity/train',
-            'ann_file': '/home/grupo06/datasets/udacity/instance_train.json'
+            'ann_file': '/home/grupo06/datasets/udacity/udacity_train.json'
         },
         'udacity_valid': {
             'img_dir': '/home/mcv/home/mcv/datasets/M5/detection/Udacity/valid',
-            'ann_file': '/home/grupo06/datasets/udacity/instance_valid.json'
+            'ann_file': '/home/grupo06/datasets/udacity/udacity_valid.json'
         },
         'udacity_test': {
             'img_dir': '/home/mcv/home/mcv/datasets/M5/detection/Udacity/test',
-            'ann_file': '/home/grupo06/datasets/udacity/instance_test.json'
+            'ann_file': '/home/grupo06/datasets/udacity/udacity_test.json'
         }
     }
 
