@@ -22,6 +22,7 @@ def main():
     sets = ['test', 'train', 'valid']
 
     for image_set in sets:
+        print('Converting set: {}...'.format(image_set))
         root = os.path.join(args.input, image_set)
 
         images = (seq(os.listdir(root))
@@ -70,7 +71,8 @@ def main():
                     'bbox': [(bbox[1] - bbox[3] // 2) * width, (bbox[2] - bbox[4] // 2) * height, bbox[3] * width,
                              bbox[4] * height],
                     'area': bbox[3] * bbox[4],
-                    'iscrowd': 0
+                    'iscrowd': 0,
+                    'segmentation': []
                 })
                 annotation_id += 1
 
