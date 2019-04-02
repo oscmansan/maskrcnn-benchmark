@@ -115,12 +115,24 @@ class DatasetCatalog(object):
         'udacity_test': {
             'img_dir': '/home/mcv/datasets/M5/detection/Udacity/test',
             'ann_file': '/home/grupo06/datasets/udacity/instances_test.json'
+        },
+        'TT100K_train': {
+            'img_dir': '/home/mcv/datasets/M5/detection/TT100K_detection/train',
+            'ann_file': '/home/grupo06/datasets/TT100K_detection/instances_train.json'
+        },
+        'TT100K_valid': {
+            'img_dir': '/home/mcv/datasets/M5/detection/TT100K_detection/valid',
+            'ann_file': '/home/grupo06/datasets/TT100K_detection/instances_valid.json'
+        },
+        'TT100K_test': {
+            'img_dir': '/home/mcv/datasets/M5/detection/TT100K_detection/test',
+            'ann_file': '/home/grupo06/datasets/TT100K_detection/instances_test.json'
         }
     }
 
     @staticmethod
     def get(name):
-        if "coco" in name or 'udacity' in name:
+        if "coco" in name or 'udacity' in name or 'TT100K' in name:
             data_dir = DatasetCatalog.DATA_DIR
             attrs = DatasetCatalog.DATASETS[name]
             args = dict(
