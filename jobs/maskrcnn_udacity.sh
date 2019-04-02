@@ -12,9 +12,9 @@ source ../venv/bin/activate
 python tools/train_net.py --config-file configs/e2e_mask_rcnn_R_50_FPN_1x.yaml \
     SOLVER.IMS_PER_BATCH 12 \
     SOLVER.BASE_LR 0.01 \
-    SOLVER.MAX_ITER 217000 \
-    SOLVER.STEPS "(145000, 193000)" \
-    TEST.IMS_PER_BATCH 4 \
+    SOLVER.MAX_ITER 22000 \
+    SOLVER.STEPS "(13200, 17600)" \
+    TEST.IMS_PER_BATCH 6 \
     MODEL.MASK_ON False \
     DATASETS.TRAIN "('udacity_train',)" \
     DATASETS.TEST "('udacity_valid', 'udacity_test')" \

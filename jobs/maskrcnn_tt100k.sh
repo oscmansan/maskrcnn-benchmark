@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#SBATCH --job-name maskrcnn_TT100K
+#SBATCH --job-name maskrcnn_tt100k
 #SBATCH --cpus-per-task 4
 #SBATCH --mem 32G
 #SBATCH --qos masterlow
@@ -12,10 +12,10 @@ source ../venv/bin/activate
 python tools/train_net.py --config-file configs/e2e_mask_rcnn_R_50_FPN_1x.yaml \
     SOLVER.IMS_PER_BATCH 12 \
     SOLVER.BASE_LR 0.01 \
-    SOLVER.MAX_ITER 217000 \
-    SOLVER.STEPS "(145000, 193000)" \
-    TEST.IMS_PER_BATCH 4 \
+    SOLVER.MAX_ITER 105000 \
+    SOLVER.STEPS "(63000, 84000)" \
+    TEST.IMS_PER_BATCH 6 \
     MODEL.MASK_ON False \
-    DATASETS.TRAIN "('TT100K_train',)" \
-    DATASETS.TEST "('TT100K_valid', 'TT100K_test')" \
-    OUTPUT_DIR ../work/experiments/maskrcnn_TT100K
+    DATASETS.TRAIN "('tt100k_train',)" \
+    DATASETS.TEST "('tt100k_valid', 'tt100k_test')" \
+    OUTPUT_DIR ../work/experiments/maskrcnn_tt100k

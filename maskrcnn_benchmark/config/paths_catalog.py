@@ -116,23 +116,23 @@ class DatasetCatalog(object):
             'img_dir': '/home/mcv/datasets/M5/detection/Udacity/test',
             'ann_file': '/home/grupo06/datasets/udacity/instances_test.json'
         },
-        'TT100K_train': {
+        'tt100k_train': {
             'img_dir': '/home/mcv/datasets/M5/detection/TT100K_detection/train',
-            'ann_file': '/home/grupo06/datasets/TT100K_detection/instances_train.json'
+            'ann_file': '/home/grupo06/datasets/tt100k/instances_train.json'
         },
-        'TT100K_valid': {
+        'tt100k_valid': {
             'img_dir': '/home/mcv/datasets/M5/detection/TT100K_detection/valid',
-            'ann_file': '/home/grupo06/datasets/TT100K_detection/instances_valid.json'
+            'ann_file': '/home/grupo06/datasets/tt100k/instances_valid.json'
         },
-        'TT100K_test': {
+        'tt100k_test': {
             'img_dir': '/home/mcv/datasets/M5/detection/TT100K_detection/test',
-            'ann_file': '/home/grupo06/datasets/TT100K_detection/instances_test.json'
+            'ann_file': '/home/grupo06/datasets/tt100k/instances_test.json'
         }
     }
 
     @staticmethod
     def get(name):
-        if "coco" in name or 'udacity' in name or 'TT100K' in name:
+        if "coco" in name or 'udacity' in name or 'tt100k' in name:
             data_dir = DatasetCatalog.DATA_DIR
             attrs = DatasetCatalog.DATASETS[name]
             args = dict(
