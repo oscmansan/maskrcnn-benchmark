@@ -117,15 +117,15 @@ class DatasetCatalog(object):
             'ann_file': '/home/grupo06/datasets/udacity/instances_test.json'
         },
         'tt100k_train': {
-            'img_dir': '/home/mcv/datasets/M5/detection/tt100k/train',
+            'img_dir': '/home/mcv/datasets/M5/detection/TT100K_detection/train',
             'ann_file': '/home/grupo06/datasets/tt100k/instances_train.json'
         },
         'tt100k_valid': {
-            'img_dir': '/home/mcv/datasets/M5/detection/tt100k/valid',
+            'img_dir': '/home/mcv/datasets/M5/detection/TT100K_detection/valid',
             'ann_file': '/home/grupo06/datasets/tt100k/instances_valid.json'
         },
         'tt100k_test': {
-            'img_dir': '/home/mcv/datasets/M5/detection/tt100k/test',
+            'img_dir': '/home/mcv/datasets/M5/detection/TT100K_detection/test',
             'ann_file': '/home/grupo06/datasets/tt100k/instances_test.json'
         }
     }
