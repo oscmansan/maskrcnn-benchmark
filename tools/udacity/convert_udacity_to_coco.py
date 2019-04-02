@@ -68,7 +68,7 @@ def main():
                     'id': annotation_id,
                     'category_id': bbox[0],
                     'image_id': id,
-                    'bbox': [(bbox[1] - bbox[3] // 2) * width, (bbox[2] - bbox[4] // 2) * height, bbox[3] * width,
+                    'bbox': [(bbox[1] - bbox[3] / 2) * width, (bbox[2] - bbox[4] / 2) * height, bbox[3] * width,
                              bbox[4] * height],
                     'area': bbox[3] * width * bbox[4] * height,
                     'iscrowd': 0,

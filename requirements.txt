@@ -4,3 +4,4 @@ cython
 matplotlib
 tqdm
 pyfunctional
+Pillow
