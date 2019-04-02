@@ -3,5 +3,4 @@ yacs
 cython
 matplotlib
 tqdm
-pyfunctional
 Pillow

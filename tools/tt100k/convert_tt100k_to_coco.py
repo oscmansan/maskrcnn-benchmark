@@ -1,18 +1,14 @@
+import os
 import argparse
 import json
-import os
 
 from PIL import Image
-from functional import seq
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Convert dataset')
-    parser.add_argument(
-        'input', help="TT100K dataset path", type=str)
-    parser.add_argument(
-        'output', help="output dir for json files", type=str)
-
+    parser = argparse.ArgumentParser(description='Convert TT100K dataset to COCO format.')
+    parser.add_argument('img_dir', type=str, help="TT100K dataset path.")
+    parser.add_argument('ann_dir', type=str, help="Output dir for annotation files.")
     return parser.parse_args()
 
 
@@ -23,16 +19,10 @@ def main():
 
     for image_set in sets:
         print('Converting set: {}...'.format(image_set))
-        root = os.path.join(args.input, image_set)
+        root = os.path.join(args.img_dir, image_set)
 
-        images = (seq(os.listdir(root))
-                  .filter(lambda name: name.endswith('.jpg'))
-                  .map(lambda name: os.path.join(root, name))
-                  .to_list())
-        annotations = (seq(os.listdir(root))
-                       .filter(lambda name: name.endswith('.txt'))
-                       .map(lambda name: os.path.join(root, name))
-                       .to_list())
+        images = sorted([os.path.join(root, name) for name in os.listdir(root) if name.endswith('.jpg')])
+        annotations = sorted([os.path.join(root, name) for name in os.listdir(root) if name.endswith('.txt')])
 
         info_json = {
             "description": 'TT100K',
@@ -93,10 +83,10 @@ def main():
             width, height = Image.open(image_path).size
 
             with open(annotation_path, 'r') as f:
-                bboxes = (seq(f.readlines())
-                          .map(lambda l: l.split(' '))
-                          .map(lambda p: (int(p[0]), float(p[1]), float(p[2]), float(p[3]), float(p[4])))
-                          .to_list())
+                bboxes = []
+                for l in f.readlines():
+                    p = l.split(' ')
+                    bboxes.append((int(p[0]), float(p[1]), float(p[2]), float(p[3]), float(p[4])))
 
             images_json.append({
                 'id': id,
@@ -106,16 +96,22 @@ def main():
             })
 
             for bbox in bboxes:
+                category_id = bbox[0]
+                x = (bbox[1] - bbox[3] / 2) * width
+                y = (bbox[2] - bbox[4] / 2) * height
+                w = bbox[3] * width
+                h = bbox[4] * height
+
                 annotations_json.append({
                     'id': annotation_id,
-                    'category_id': bbox[0],
+                    'category_id': category_id,
                     'image_id': id,
-                    'bbox': [(bbox[1] - bbox[3] / 2) * width, (bbox[2] - bbox[4] / 2) * height, bbox[3] * width,
-                             bbox[4] * height],
-                    'area': bbox[3] * width * bbox[4] * height,
+                    'bbox': [x, y, w, h],
+                    'area': w * h,
                     'iscrowd': 0,
                     'segmentation': []
                 })
+
                 annotation_id += 1
 
         json_dict = {
@@ -126,7 +122,7 @@ def main():
             'licenses': []
         }
 
-        with open(os.path.join(args.output, 'instances_{}.json'.format(image_set)), 'w') as f:
+        with open(os.path.join(args.ann_dir, 'instances_{}.json'.format(image_set)), 'w') as f:
             json.dump(json_dict, f)
 
 
