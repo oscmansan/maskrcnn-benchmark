@@ -21,8 +21,8 @@ def main():
     root = os.path.join(args.img_dir, 'training')
     images_root = os.path.join(root, 'image_2')
     labels_root = os.path.join(root, 'label_2')
-    images = sorted([os.path.join(root, name) for name in os.listdir(images_root) if name.endswith('.jpg')])
-    annotations = sorted([os.path.join(root, name) for name in os.listdir(labels_root) if name.endswith('.txt')])
+    images = sorted([os.path.join(images_root, name) for name in os.listdir(images_root) if name.endswith('.png')])
+    annotations = sorted([os.path.join(labels_root, name) for name in os.listdir(labels_root) if name.endswith('.txt')])
 
     info_json = {
         "description": 'Kitti',
@@ -72,9 +72,9 @@ def main():
             h = bbox[4] * height
 
             annotation.append({
-                'id': annotation_id_train if is_train else annotations_json_test,
+                'id': annotation_id_train if is_train else annotation_id_test,
                 'category_id': category_id,
-                'image_id': id,
+                'image_id': image_id_train if is_train else image_id_test,
                 'bbox': [x, y, w, h],
                 'area': w * h,
                 'iscrowd': 0,
