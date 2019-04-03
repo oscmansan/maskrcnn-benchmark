@@ -52,7 +52,7 @@ def main():
                 bboxes.append((p[0], float(p[1]), float(p[2]), float(p[3]), float(p[4])))
 
         image = {
-            'id': image_id_train if is_train else images_json_test,
+            'id': image_id_train if is_train else image_id_test,
             'width': width,
             'height': height,
             'file_name': os.path.basename(image_path)
