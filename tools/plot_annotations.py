@@ -10,8 +10,9 @@ import visdom
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('img_dir')
-    parser.add_argument('ann_file')
+    parser.add_argument('img_dir', type=str)
+    parser.add_argument('ann_file', type=str)
+    parser.add_argument('--n-images', type=int, default=10)
     return parser.parse_args()
 
 
@@ -28,7 +29,7 @@ def main():
         img_to_ann[ann['image_id']].append(ann)
 
     images = data['images']
-    images = np.random.choice(images, 10)
+    images = np.random.choice(images, args.n_images)
     for img in images:
         image = Image.open(os.path.join(args.img_dir, img['file_name']))
         draw = ImageDraw.Draw(image)
