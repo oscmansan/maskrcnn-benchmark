@@ -132,9 +132,9 @@ class DatasetCatalog(object):
             'img_dir': '/home/mcv/datasets/M5/detection/KITTI/training/image_2',
             'ann_file': '/home/grupo06/datasets/kitti/instances_train.json'
         },
-        'kitti_test': {
+        'kitti_valid': {
             'img_dir': '/home/mcv/datasets/M5/detection/KITTI/training/image_2',
-            'ann_file': '/home/grupo06/datasets/kitti/instances_test.json'
+            'ann_file': '/home/grupo06/datasets/kitti/instances_valid.json'
         }
     }
 

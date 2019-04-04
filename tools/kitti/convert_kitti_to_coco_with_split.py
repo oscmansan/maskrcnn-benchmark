@@ -119,7 +119,7 @@ def main():
     with open(os.path.join(args.ann_dir, 'instances_train.json'), 'w') as f:
         json.dump(json_dict_train, f)
 
-    with open(os.path.join(args.ann_dir, 'instances_test.json'), 'w') as f:
+    with open(os.path.join(args.ann_dir, 'instances_valid.json'), 'w') as f:
         json.dump(json_dict_test, f)
 
 
