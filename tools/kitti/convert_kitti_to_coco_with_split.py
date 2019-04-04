@@ -6,11 +6,12 @@ import random
 from PIL import Image
 
 SPLIT_RATIO = 0.8
+CATEGORIES = ['Pedestrian', 'Cyclist', 'Car']
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Convert Udacity dataset to COCO format.')
-    parser.add_argument('img_dir', type=str, help="Udacity dataset path.")
+    parser = argparse.ArgumentParser(description='Convert KITTI dataset to COCO format.')
+    parser.add_argument('img_dir', type=str, help="KITTI dataset path.")
     parser.add_argument('ann_dir', type=str, help="Output dir for annotation files.")
     return parser.parse_args()
 
@@ -25,7 +26,7 @@ def main():
     annotations = sorted([os.path.join(labels_root, name) for name in os.listdir(labels_root) if name.endswith('.txt')])
 
     info_json = {
-        "description": 'Kitti',
+        "description": 'KITTI',
     }
     images_json_train = []
     images_json_test = []
@@ -43,7 +44,7 @@ def main():
     for image_path, annotation_path in zip(images, annotations):
         width, height = Image.open(image_path).size
 
-        is_train = random.random() < SPLIT_RATIO
+        train = random.random() < SPLIT_RATIO
 
         with open(annotation_path, 'r') as f:
             bboxes = []
@@ -52,7 +53,7 @@ def main():
                 bboxes.append((p[0], float(p[4]), float(p[5]), float(p[6]), float(p[7])))
 
         image = {
-            'id': image_id_train if is_train else image_id_test,
+            'id': image_id_train if train else image_id_test,
             'width': width,
             'height': height,
             'file_name': os.path.basename(image_path)
@@ -61,9 +62,14 @@ def main():
         annotation = []
 
         for bbox in bboxes:
-            if bbox[0] not in categories_map.keys():
-                categories_json.append({'name': bbox[0], 'id': len(categories_map.keys())})
-                categories_map[bbox[0]] = len(categories_map.keys())
+            category_name = bbox[0]
+
+            if category_name not in CATEGORIES:
+                continue
+
+            if category_name not in categories_map.keys():
+                categories_json.append({'name': category_name, 'id': len(categories_map.keys())})
+                categories_map[category_name] = len(categories_map.keys())
 
             category_id = categories_map[bbox[0]]
             x = bbox[1]
@@ -72,20 +78,20 @@ def main():
             h = bbox[4] - bbox[2]
 
             annotation.append({
-                'id': annotation_id_train if is_train else annotation_id_test,
+                'id': annotation_id_train if train else annotation_id_test,
                 'category_id': category_id,
-                'image_id': image_id_train if is_train else image_id_test,
+                'image_id': image_id_train if train else image_id_test,
                 'bbox': [x, y, w, h],
                 'area': w * h,
                 'iscrowd': 0,
                 'segmentation': []
             })
-            if is_train:
+            if train:
                 annotation_id_train += 1
             else:
                 annotation_id_test += 1
 
-        if is_train:
+        if train:
             images_json_train.append(image)
             annotations_json_train += annotation
             image_id_train += 1
