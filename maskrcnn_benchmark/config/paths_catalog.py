@@ -129,11 +129,11 @@ class DatasetCatalog(object):
             'ann_file': '/home/grupo06/datasets/tt100k/instances_test.json'
         },
         'kitti_train': {
-            'img_dir': '/home/mcv/datasets/M5/detection/KITTI/train',
+            'img_dir': '/home/mcv/datasets/M5/detection/KITTI/training/image_2',
             'ann_file': '/home/grupo06/datasets/kitti/instances_train.json'
         },
         'kitti_test': {
-            'img_dir': '/home/mcv/datasets/M5/detection/KITTI/test',
+            'img_dir': '/home/mcv/datasets/M5/detection/KITTI/training/image_2',
             'ann_file': '/home/grupo06/datasets/kitti/instances_test.json'
         }
     }

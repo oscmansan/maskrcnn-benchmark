@@ -16,6 +16,6 @@ python tools/train_net.py --config-file configs/e2e_mask_rcnn_R_50_FPN_1x.yaml \
     SOLVER.STEPS "(63000, 84000)" \
     TEST.IMS_PER_BATCH 6 \
     MODEL.MASK_ON False \
-    DATASETS.TRAIN "(kitti_train',)" \
+    DATASETS.TRAIN "('kitti_train',)" \
     DATASETS.TEST "('kitti_test',)" \
     OUTPUT_DIR ../work/experiments/maskrcnn_kitti
