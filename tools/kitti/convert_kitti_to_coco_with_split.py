@@ -49,7 +49,7 @@ def main():
             bboxes = []
             for l in f.readlines():
                 p = l.split(' ')
-                bboxes.append((p[0], float(p[1]), float(p[2]), float(p[3]), float(p[4])))
+                bboxes.append((p[0], float(p[4]), float(p[5]), float(p[6]), float(p[7])))
 
         image = {
             'id': image_id_train if is_train else image_id_test,
@@ -66,10 +66,10 @@ def main():
                 categories_map[bbox[0]] = len(categories_map.keys())
 
             category_id = categories_map[bbox[0]]
-            x = (bbox[1] - bbox[3] / 2) * width
-            y = (bbox[2] - bbox[4] / 2) * height
-            w = bbox[3] * width
-            h = bbox[4] * height
+            x = bbox[1]
+            y = bbox[2]
+            w = bbox[3] - bbox[1]
+            h = bbox[4] - bbox[2]
 
             annotation.append({
                 'id': annotation_id_train if is_train else annotation_id_test,
