@@ -12,6 +12,7 @@ from torchvision import transforms as T
 from maskrcnn_benchmark.config import cfg
 from maskrcnn_benchmark.modeling.detector import build_detection_model
 from maskrcnn_benchmark.utils.checkpoint import Checkpointer
+from maskrcnn_benchmark.structures.image_list import to_image_list
 from maskrcnn_benchmark.config.paths_catalog import DatasetCatalog
 
 
@@ -68,21 +69,22 @@ def main():
     for img in np.random.choice(images, args.num_images):
         # Load image in OpenCV format.
         image_file = os.path.join(img_dir, img['file_name'])
-        original_image = cv2.imread(image_file)
+        image = cv2.imread(image_file)
         print(image_file)
 
         # Apply pre-processing to image.
-        image = transforms(original_image)
-        image = image.to('cuda')
+        image_tensor = transforms(image)
+        image_list = to_image_list(image_tensor, cfg.DATALOADER.SIZE_DIVISIBILITY)
+        image_list = image_list.to('cuda')
 
         # Compute predictions.
         with torch.no_grad():
-            predictions = model(image)
+            predictions = model(image_list)
         predictions = predictions[0]
         predictions = predictions.to('cpu')
 
         # Reshape prediction into the original image size.
-        height, width = original_image.shape[:-1]
+        height, width = image.shape[:-1]
         predictions = predictions.resize((width, height))
 
         # Select top predictions.
@@ -95,7 +97,7 @@ def main():
         boxes = predictions.bbox
 
         # Compose result image.
-        result = original_image.copy()
+        result = image.copy()
         template = '{}: {:.2f}'
         for box, score, label in zip(boxes, scores, labels):
             box = box.to(torch.int64)
