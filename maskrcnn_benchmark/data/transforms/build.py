@@ -7,10 +7,12 @@ def build_transforms(cfg, is_train=True):
         min_size = cfg.INPUT.MIN_SIZE_TRAIN
         max_size = cfg.INPUT.MAX_SIZE_TRAIN
         flip_prob = 0.5  # cfg.INPUT.FLIP_PROB_TRAIN
+        jitter_prob = 0.5
     else:
         min_size = cfg.INPUT.MIN_SIZE_TEST
         max_size = cfg.INPUT.MAX_SIZE_TEST
         flip_prob = 0
+        jitter_prob = 0
 
     to_bgr255 = cfg.INPUT.TO_BGR255
     normalize_transform = T.Normalize(
@@ -19,6 +21,7 @@ def build_transforms(cfg, is_train=True):
 
     transform = T.Compose(
         [
+            T.ColorJitter(jitter_prob),
             T.Resize(min_size, max_size),
             T.RandomHorizontalFlip(flip_prob),
             T.ToTensor(),

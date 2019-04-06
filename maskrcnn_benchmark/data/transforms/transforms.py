@@ -88,3 +88,23 @@ class Normalize(object):
             image = image[[2, 1, 0]] * 255
         image = F.normalize(image, mean=self.mean, std=self.std)
         return image, target
+
+
+class ColorJitter(object):
+    def __init__(self, prob=0.5, brightness=32/255., contrast=0.5, saturation=0.5, hue=0.1):
+        self.prob = prob
+        self.brightness_factor = brightness
+        self.contrast_factor = contrast
+        self.saturation_factor = saturation
+        self.hue_factor = hue
+
+    def __call__(self, image, target):
+        if random.random() < self.prob:
+            image = F.adjust_brightness(image, self.brightness_factor)
+        if random.random() < self.prob:
+            image = F.adjust_contrast(image, self.contrast_factor)
+        if random.random() < self.prob:
+            image = F.adjust_saturation(image, self.saturation_factor)
+        if random.random() < self.prob:
+            image = F.adjust_hue(image, self.hue_factor)
+        return image, target
