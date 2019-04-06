@@ -85,6 +85,13 @@ def prepare_for_coco_detection(predictions, dataset):
         scores = prediction.get_field("scores").tolist()
         labels = prediction.get_field("labels").tolist()
 
+        # Remove prediction if label is greater than the number of categories.
+        inds = [i for i, label in enumerate(labels) if label > len(dataset.coco.dataset['categories'])]
+        for i in inds:
+            del boxes[i]
+            del scores[i]
+            del labels[i]
+
         mapped_labels = [dataset.contiguous_category_id_to_json_id[i] for i in labels]
 
         coco_results.extend(
